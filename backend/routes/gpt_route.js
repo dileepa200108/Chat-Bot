@@ -2,7 +2,7 @@ import express from 'express';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const GPTRouter = express.Router();
-const apiKey = "AIzaSyCBDy3_sMwyBcuoXrb3xdJoUrCnV2XZ21A";
+const apiKey = "AIzaSyAat2iMvyHFCAz-PuDS7b6slVU8EsF8ono";
 const genAI = new GoogleGenerativeAI(apiKey);
 
 // Create the generative model
@@ -19,39 +19,29 @@ const generationConfig = {
   responseMimeType: "text/plain",
 };
 
-// Store chat history in memory (for simplicity, using an object)
-const chatHistories = {}; // Key: sessionId, Value: chat history
+const sessions = new Map();
 
 // Route to handle chat queries
 GPTRouter.post('/chat', async (req, res) => {
-  const { prompt, sessionId } = req.body;
+  const { sessionId, prompt } = req.body;
 
-  if (!prompt || !sessionId) {
-    return res.status(400).json({ error: 'Prompt and sessionId are required' });
+  if (!sessionId || !prompt) {
+    return res.status(400).json({ error: 'sessionId and prompt are required' });
   }
 
   try {
-    // Check if chat history exists for the sessionId
-    let chatHistory = chatHistories[sessionId] || [];
+    if (!sessions.has(sessionId)) {
+      const chatSession = model.startChat({
+        generationConfig,
+        history: [],
+      });
+      sessions.set(sessionId, chatSession);
+    }
 
-    // Start a new chat session if no history exists
-    const chatSession = model.startChat({
-      generationConfig,
-      history: chatHistory,
-    });
+    const chatSession = sessions.get(sessionId);
 
     // Send the prompt to the AI model
     const result = await chatSession.sendMessage(prompt);
-    
-    // Update chat history
-    chatHistory.push({
-      userMessage: prompt,
-      aiResponse: result.response.text(),
-    });
-
-    // Save the updated chat history
-    chatHistories[sessionId] = chatHistory;
-
     res.status(200).json({ result: result.response.text() });
   } catch (error) {
     console.error('Error:', error);
