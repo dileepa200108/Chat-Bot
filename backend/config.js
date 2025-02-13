@@ -1,0 +1,1 @@
+export const mongoDBURL = 'mongodb+srv://zoro:zoro1234@mytestings.xhyavhm.mongodb.net/users-collection?retryWrites=true&w=majority&appName=MyTestings'
