@@ -8,14 +8,16 @@ const ValentineChatComponent = ({ game }) => {
   const [error, setError] = useState(null);
   const chatEndRef = useRef(null);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [sessionId, setSessionId] = useState(null);  // Add sessionId state
 
   // Fetch initial message
   const fetchInitialMessage = async () => {
     try {
-      const promptWithGame = `Happy Valentine's Day! 💖 I'm Gwen, your adorable gaming cupid!`;
+      const promptWithGame = `Hello`;
 
       const chatResponse = await axios.post("https://backend-test-production-ed922.up.railway.app/api/chat", {
         prompt: promptWithGame,
+        sessionId: sessionId,  // Pass sessionId to backend
       });
       const aiMessage = { role: "ai", text: chatResponse.data.result };
 
@@ -31,13 +33,17 @@ const ValentineChatComponent = ({ game }) => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-
   // Open the chat when the component mounts
   useEffect(() => {
     if (isChatOpen) {
-      fetchInitialMessage();
+      if (!sessionId) {
+        // Generate a new sessionId when the chat opens
+        setSessionId(Date.now().toString());
+      } else {
+        fetchInitialMessage();
+      }
     }
-  }, [isChatOpen]);
+  }, [isChatOpen, sessionId]);
 
   // Handle user input
   const handleInputChange = (event) => {
@@ -58,8 +64,10 @@ const ValentineChatComponent = ({ game }) => {
     try {
       const promptWithGame = `You are Gwen, the gaming cupid for Valentine's Day.`;
 
+      // Pass sessionId when sending a message to keep history
       const response = await axios.post("https://backend-test-production-ed922.up.railway.app/api/chat", {
         prompt: promptWithGame,
+        sessionId: sessionId,  // Pass sessionId to backend
       });
       const aiMessage = { role: "ai", text: response.data.result };
 
@@ -98,9 +106,7 @@ const ValentineChatComponent = ({ game }) => {
             {messages.map((msg, index) => (
               <div
                 key={index}
-                className={`mb-2 p-2 rounded-md ${
-                  msg.role === "user" ? "bg-pink-200 text-right" : "bg-pink-300 text-left"
-                }`}
+                className={`mb-2 p-2 rounded-md ${msg.role === "user" ? "bg-pink-200 text-right" : "bg-pink-300 text-left"}`}
               >
                 {msg.text}
               </div>

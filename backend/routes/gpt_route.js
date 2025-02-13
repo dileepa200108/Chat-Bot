@@ -19,23 +19,39 @@ const generationConfig = {
   responseMimeType: "text/plain",
 };
 
+// Store chat history in memory (for simplicity, using an object)
+const chatHistories = {}; // Key: sessionId, Value: chat history
+
 // Route to handle chat queries
 GPTRouter.post('/chat', async (req, res) => {
-  const { prompt } = req.body;
+  const { prompt, sessionId } = req.body;
 
-  if (!prompt) {
-    return res.status(400).json({ error: 'Prompt is required' });
+  if (!prompt || !sessionId) {
+    return res.status(400).json({ error: 'Prompt and sessionId are required' });
   }
 
   try {
-    // Start a new chat session for each request
+    // Check if chat history exists for the sessionId
+    let chatHistory = chatHistories[sessionId] || [];
+
+    // Start a new chat session if no history exists
     const chatSession = model.startChat({
       generationConfig,
-      history: [],
+      history: chatHistory,
     });
 
     // Send the prompt to the AI model
     const result = await chatSession.sendMessage(prompt);
+    
+    // Update chat history
+    chatHistory.push({
+      userMessage: prompt,
+      aiResponse: result.response.text(),
+    });
+
+    // Save the updated chat history
+    chatHistories[sessionId] = chatHistory;
+
     res.status(200).json({ result: result.response.text() });
   } catch (error) {
     console.error('Error:', error);
