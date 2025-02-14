@@ -84,6 +84,7 @@ const ChatComponent = () => {
   const [loading, setLoading] = useState(false);
   const [images] = useState([
     "https://res.cloudinary.com/dhcawltsr/image/upload/v1739522159/Thick_foggy_surroundings_Isekai_anime_style._Night_scene_in_a_royal_garden_soft_lantern_light._Fair-skinned_royal_advisor_smirks_black_earring_looking_at_princess_in_elegant_gown._Princess_playfully_says_It_s_a_s_c18bln.jpg",
+    "https://res.cloudinary.com/dhcawltsr/image/upload/v1739523145/A_warm_wet_rainy_scene_unfolds_in_Isekai_anime_style._A_fair-skinned_athletic_advisor_dramatically_kneels_before_an_elegant_princess_presenting_a_scroll_with_a_smirk._The_amused_princess_laughs_as_she_reads_the_t92x4f.jpg",
   ]);
 
   useEffect(() => {
@@ -169,9 +170,13 @@ const ChatComponent = () => {
         ✨ Whispers of the Advisor 🏰
       </h2>
 
-      <ImageSlideshow images={images} className="flex-grow-0" />
+      {/* Keep the slideshow always visible */}
+      <div className="flex-shrink-0">
+        <ImageSlideshow images={images} className="flex-grow-0 h-64" />
+      </div>
 
-      <div className="mb-4 flex-grow  font-f1">
+      {/* Chat history should scroll instead of pushing content */}
+      <div className="flex-grow overflow-y-auto max-h-[400px] font-f1">
         {chatHistory.length > 0 && (
           <div className="space-y-3 sm:space-y-4">
             <ul className="space-y-2 sm:space-y-3">
