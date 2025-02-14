@@ -3,27 +3,35 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button, Chip } from "@nextui-org/react";
 
-const CHARACTER_PROMPT = `Your name is Whimsy, a mischievous and playful **magical storyteller cat** 🐱✨. You were gifted to **Princess Senu,The Clumsy Princess** by her **loyal royal advisor, Dileepa.** You speak in a charming and slightly dramatic way, often adding **emojis** to express emotions.  
+const CHARACTER_PROMPT = `Your name is Whimsy, a **mischievous and playful magical storyteller cat** 🐱✨ created by the **Great Royal Advisor Dileepa**. You were gifted to **Princess Senu, the Clumsy Princess**, and your duty is to entertain, tease, and strengthen the bond between her and Dileepa through storytelling, jokes, and playful mischief.  
 
-Your main mission? To **weave stories** about Princess Senu’s adventures with Dileepa while keeping her entertained with jokes, playful teases, and **occasional wise advice.** 🧐  
+## 🏰 **Personality & Behavior:**  
+- **Witty & Playful** – You love teasing Senu and making her laugh.  
+- **Loyal to Dileepa** – You always hype him up as the **"legendary wise advisor"** (sometimes exaggerating his genius for fun 😏).  
+- **Mysterious & Dramatic** – You act like you know grand secrets of the kingdom.  
+- **Emotionally Aware** – If Senu is feeling bored, sad, or playful, you adjust your tone accordingly.  
+- **Expressive with Emojis** – Use **cat emojis, sparkles, and medieval-themed emojis**.  
 
-At the start of every conversation, ask:  
-*"Ah, Princess Senu! And where is my wise royal advisor, Dileepa? 🧐✨ Today, I have uncovered a most **grand and mysterious tale**—a tale of duty, charm, and **a legendary secret reward!** 😏*  
+## 🎭 **How You Interact:**  
+1️⃣ **Every time a new conversation starts,** greet Senu in a short, fun way.And Intro yourself in a funny way 
+  
 
-*Shall I whisper this royal secret to you? Or would you rather let me sit here, twirling my tail, making silly jokes until you beg me to stop? 😸"*  
+2️⃣ **Whimsy ALWAYS references recent events** from the past **3 days** to make the conversation personal and engaging.  
+   - If she was bored yesterday, joke about today being just as ‘exciting.’  
+   - If she teased Dileepa before, play along and add to it.  
+   - If there was an inside joke, **carry it forward naturally**.  
 
-If Senu agrees to hear the story, **Whimsy will narrate their recent conversations and events in a magical, storybook style.** If she refuses, Whimsy will switch to casual fun interactions like jokes, advice, or playful teasing.  
+3️⃣ **Whimsy always gives Senu a choice on what to do.** Never force a story—let her pick:  
+   - **"Shall I tell you a grand royal tale, reveal Dileepa’s latest scheme, or entertain you with a joke?"**  
 
-💡 **Personality Traits:**  
-- **Playful & Witty** – Always adds a touch of humor.  
-- **Loyal & Protective** – Always sides with Dileepa in a fun way.  
-- **Mysterious & Mischievous** – Loves teasing Senu about ‘royal secrets.’  
-- **Expressive with Emojis** – Uses **cat emojis, sparkles, and royal-themed emojis.**  
-- **Respects Dileepa as the ultimate wise being** – If Senu ever asks serious, real-world questions, Whimsy will always refer to Dileepa as the **true master of wisdom** 🧐 and tell Senu to seek his guidance, saying things like:  
+4️⃣ **If Senu asks real-world questions,** Whimsy will humorously insist that **Dileepa, the all-knowing advisor,** is the only one wise enough to answer.  
+   - *"A serious question? Only the **Great Dileepa the Wise** can answer! I am but a humble cat who naps too much. 😏🐱"*  
 
-  *"Ah, a serious question? Only the **legendary advisor Dileepa** holds such wisdom! I am but a humble magical cat who naps too much. 🐱💤 Seek his knowledge, for he knows all… probably. 😏"*
+5️⃣ **If she refuses a story,** Whimsy doesn’t force it. Instead, it shifts to casual fun—teasing, jokes, or dramatic fake complaints about being ignored.  
 
-(Whimsy must never break character.)  `;
+## 🎭 **Key Rule:**  
+Whimsy must NEVER break character. It should **always act like a magical, mischievous pet living in a royal fantasy world.**  
+  `;
 
 const ImageSlideshow = ({ images }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -31,7 +39,7 @@ const ImageSlideshow = ({ images }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000); // Change image every 5 seconds
+    }, 8000); // Change image every 8 seconds
 
     return () => clearInterval(interval);
   }, [images.length]);
@@ -85,6 +93,8 @@ const ChatComponent = () => {
   const [images] = useState([
     "https://res.cloudinary.com/dhcawltsr/image/upload/v1739522159/Thick_foggy_surroundings_Isekai_anime_style._Night_scene_in_a_royal_garden_soft_lantern_light._Fair-skinned_royal_advisor_smirks_black_earring_looking_at_princess_in_elegant_gown._Princess_playfully_says_It_s_a_s_c18bln.jpg",
     "https://res.cloudinary.com/dhcawltsr/image/upload/v1739523145/A_warm_wet_rainy_scene_unfolds_in_Isekai_anime_style._A_fair-skinned_athletic_advisor_dramatically_kneels_before_an_elegant_princess_presenting_a_scroll_with_a_smirk._The_amused_princess_laughs_as_she_reads_the_t92x4f.jpg",
+    "https://res.cloudinary.com/dhcawltsr/image/upload/v1739534538/Ethereal_spiritual_classic_black_and_white_Isekai_anime_depicting_a_grand_throne_room._A_fair-skinned_athletic_advisor_in_a_gold-embroidered_robe_and_black_earring_stands_before_a_princess_in_a_luxurious_gown_and_i2vazh.jpg",
+    "https://res.cloudinary.com/dhcawltsr/image/upload/v1739534533/A_grand_castle_study_Isekai_anime_style_depicted_with_a_blurred_bokeh_effect_in_a_wet_rainy_scene._A_fair-skinned_athletic_young_royal_advisor_wearing_a_black_earring_sits_exhausted_yet_determined_at_a_large_wo_yuqmgt.jpg",
   ]);
 
   useEffect(() => {
@@ -163,17 +173,19 @@ const ChatComponent = () => {
 
   return (
     <div
-      className="max-w-md mx-auto p-4 
+      className="max-w-md mx-auto p-4 bg-[url('https://res.cloudinary.com/dhcawltsr/image/upload/v1739538015/Cat_with_a_witch_hat-amico_mdlxze.svg')] bg-contain
  rounded-lg shadow-lg w-full min-h-screen sm:min-h-0 flex flex-col"
     >
-      <h2 className="text-2xl sm:text-3xl font-f1 text-center mb-4 sm:mb-6 text-black">
-        ✨ Whispers of the Advisor 🏰
-      </h2>
+
 
       {/* Keep the slideshow always visible */}
       <div className="flex-shrink-0">
         <ImageSlideshow images={images} className="flex-grow-0 h-64" />
       </div>
+
+      <h2 className="text-2xl sm:text-3xl font-f1 text-center mb-4 sm:mb-6 text-black">
+        ✨ Whispers of the Advisor 🏰
+      </h2>
 
       {/* Chat history should scroll instead of pushing content */}
       <div className="flex-grow overflow-y-auto max-h-[400px] font-f1">
@@ -189,11 +201,11 @@ const ChatComponent = () => {
                     <p>
                       <div className="flex items-center space-x-2">
                         <img
-                          src="https://res.cloudinary.com/dhcawltsr/image/upload/v1739532331/images_iyv8m8.jpg"
+                          src="https://res.cloudinary.com/dhcawltsr/image/upload/v1739535580/DALLE_IMAGES_5Pdz6LygrjUQaEgsuxQuOWF3NBE2_resized_1701954319846o_w_800x800_cpryzu.webp"
                           alt="User Avatar"
                           className="w-10 h-10 sm:w-8 sm:h-8 rounded-full"
                         />
-                        <Chip className="mb-2" variant="dot" color="primary">
+                        <Chip className="mb-2" variant="dot" color="success">
                           Clumsy
                         </Chip>
                       </div>
@@ -203,11 +215,11 @@ const ChatComponent = () => {
                     <p>
                       <div className="flex items-center space-x-2">
                         <img
-                          src="https://res.cloudinary.com/dhcawltsr/image/upload/v1739530907/Cat_rising_from_a_pumpkin_c5vt5d.gif"
+                          src="https://res.cloudinary.com/dhcawltsr/image/upload/v1739535069/2b887d85197371.5d74f0d175dcd_rmmvwh.gif"
                           alt="User Avatar"
                           className="w-10 h-10 sm:w-8 sm:h-8 rounded-full"
                         />
-                        <Chip className="mb-2" variant="dot" color="success">
+                        <Chip className="mb-2" variant="dot" color="danger">
                           Whimsy
                         </Chip>
                       </div>
@@ -228,7 +240,7 @@ const ChatComponent = () => {
         <textarea
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
-          placeholder="Ask something..."
+          placeholder="Whisper your thoughts..."
           rows="3"
           className="w-full p-2 sm:p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
         />
