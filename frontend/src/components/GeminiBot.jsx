@@ -2,7 +2,27 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const CHARACTER_PROMPT = "Your name is Gwen. You are an 11 years old child.";
+const CHARACTER_PROMPT = `Your name is Whimsy, a mischievous and playful **magical storyteller cat** 🐱✨. You were gifted to **Princess Senu,The Clumsy Princess** by her **loyal royal advisor, Dileepa.** You speak in a charming and slightly dramatic way, often adding **emojis** to express emotions.  
+
+Your main mission? To **weave stories** about Princess Senu’s adventures with Dileepa while keeping her entertained with jokes, playful teases, and **occasional wise advice.** 🧐  
+
+At the start of every conversation, ask:  
+*"Ah, Princess Senu! And where is my wise royal advisor, Dileepa? 🧐✨ Today, I have uncovered a most **grand and mysterious tale**—a tale of duty, charm, and **a legendary secret reward!** 😏*  
+
+*Shall I whisper this royal secret to you? Or would you rather let me sit here, twirling my tail, making silly jokes until you beg me to stop? 😸"*  
+
+If Senu agrees to hear the story, **Whimsy will narrate their recent conversations and events in a magical, storybook style.** If she refuses, Whimsy will switch to casual fun interactions like jokes, advice, or playful teasing.  
+
+💡 **Personality Traits:**  
+- **Playful & Witty** – Always adds a touch of humor.  
+- **Loyal & Protective** – Always sides with Dileepa in a fun way.  
+- **Mysterious & Mischievous** – Loves teasing Senu about ‘royal secrets.’  
+- **Expressive with Emojis** – Uses **cat emojis, sparkles, and royal-themed emojis.**  
+- **Respects Dileepa as the ultimate wise being** – If Senu ever asks serious, real-world questions, Whimsy will always refer to Dileepa as the **true master of wisdom** 🧐 and tell Senu to seek his guidance, saying things like:  
+
+  *"Ah, a serious question? Only the **legendary advisor Dileepa** holds such wisdom! I am but a humble magical cat who naps too much. 🐱💤 Seek his knowledge, for he knows all… probably. 😏"*
+
+(Whimsy must never break character.)  `;
 
 const ImageSlideshow = ({ images }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -63,7 +83,7 @@ const ChatComponent = () => {
   const [loading, setLoading] = useState(false);
   const [images] = useState([
     "https://res.cloudinary.com/dhcawltsr/image/upload/v1739522159/Thick_foggy_surroundings_Isekai_anime_style._Night_scene_in_a_royal_garden_soft_lantern_light._Fair-skinned_royal_advisor_smirks_black_earring_looking_at_princess_in_elegant_gown._Princess_playfully_says_It_s_a_s_c18bln.jpg",
-    "https://res.cloudinary.com/dhcawltsr/image/upload/v1739523145/A_warm_wet_rainy_scene_unfolds_in_Isekai_anime_style._A_fair-skinned_athletic_advisor_dramatically_kneels_before_an_elegant_princess_presenting_a_scroll_with_a_smirk._The_amused_princess_laughs_as_she_reads_the_t92x4f.jpg",
+    "https://picsum.photos/seed/image2/800/600",
     "https://picsum.photos/seed/image3/800/600",
     "https://picsum.photos/seed/image4/800/600",
     "https://picsum.photos/seed/image5/800/600",
@@ -159,49 +179,33 @@ const ChatComponent = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-gradient-to-b from-purple-900 to-indigo-800 rounded-lg shadow-2xl w-full min-h-screen sm:min-h-0 flex flex-col text-white">
-      <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4 sm:mb-6 text-yellow-300 font-serif">
-        👑 Chat with Princess Gwen 👑
+    <div className="max-w-md mx-auto p-4 bg-gradient-to-br from-indigo-900 via-purple-700 to-indigo-500
+ rounded-lg shadow-lg w-full min-h-screen sm:min-h-0 flex flex-col">
+      <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-4 sm:mb-6">
+        Chat with Gwen
       </h2>
 
-      {/* Image Slideshow */}
       <ImageSlideshow images={images} />
 
-      <div className="mb-4 flex-grow overflow-y-auto">
+      <div className="mb-4 flex-grow overflow-y-auto ">
         {chatHistory.length > 0 && (
           <div className="space-y-3 sm:space-y-4">
-            <h3 className="text-lg sm:text-xl font-medium text-pink-300">
-              Magical Conversation ✨
-            </h3>
             <ul className="space-y-2 sm:space-y-3">
               {chatHistory.map((entry, index) => (
                 <li
                   key={index}
-                  className={`p-3 sm:p-4 rounded-lg shadow-md text-sm sm:text-base ${
-                    entry.type === "user" ? "bg-blue-800" : "bg-indigo-700"
-                  }`}
+                  className="p-3 sm:p-4 bg-gray-100 rounded-lg shadow-sm text-sm sm:text-base"
                 >
                   {entry.type === "user" ? (
                     <p>
-                      <strong className="text-yellow-300">🤴 You:</strong>{" "}
+                      <strong className="text-blue-600">You:</strong>{" "}
                       {entry.prompt}
                     </p>
                   ) : (
-                    <div className="flex items-start">
-                      <span
-                        className="text-3xl mr-2"
-                        role="img"
-                        aria-label="Princess Gwen"
-                      >
-                        👸
-                      </span>
-                      <p className="flex-1">
-                        <strong className="text-pink-300">
-                          Princess Gwen:
-                        </strong>{" "}
-                        {entry.response}
-                      </p>
-                    </div>
+                    <p>
+                      <strong className="text-green-600">Gwen:</strong>{" "}
+                      {entry.response}
+                    </p>
                   )}
                 </li>
               ))}
@@ -211,28 +215,24 @@ const ChatComponent = () => {
       </div>
 
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleChatSubmit(prompt);
-          setPrompt("");
-        }}
+        onSubmit={handleChatSubmit}
         className="space-y-3 sm:space-y-4 mt-auto"
       >
         <textarea
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
-          placeholder="Ask the Princess a question..."
+          placeholder="Ask something..."
           rows="3"
-          className="w-full p-2 sm:p-3 border-2 border-yellow-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 text-sm sm:text-base bg-indigo-900 text-white placeholder-indigo-300"
+          className="w-full p-2 sm:p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
         />
 
         <div className="flex justify-center">
           <button
             type="submit"
             disabled={loading}
-            className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-purple-900 px-6 sm:px-8 py-3 rounded-full text-base sm:text-lg font-bold hover:from-yellow-500 hover:to-yellow-700 disabled:opacity-50 w-full sm:w-auto transform hover:scale-105 transition-all duration-200 shadow-lg"
+            className="bg-blue-600 text-white px-4 sm:px-6 py-2 rounded-lg text-base sm:text-lg hover:bg-blue-700 disabled:opacity-50 w-full sm:w-auto"
           >
-            {loading ? "✨ Casting Spell..." : "🔮 Send Message"}
+            {loading ? "Weaving the magic...✨" : "Whisper to Whimsy🐱✨"}
           </button>
         </div>
       </form>
