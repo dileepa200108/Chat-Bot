@@ -1,7 +1,7 @@
 // ChatComponent.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Button } from "@nextui-org/react";
+import { Button, Chip } from "@nextui-org/react";
 
 const CHARACTER_PROMPT = `Your name is Whimsy, a mischievous and playful **magical storyteller cat** 🐱✨. You were gifted to **Princess Senu,The Clumsy Princess** by her **loyal royal advisor, Dileepa.** You speak in a charming and slightly dramatic way, often adding **emojis** to express emotions.  
 
@@ -162,16 +162,16 @@ const ChatComponent = () => {
 
   return (
     <div
-      className="max-w-md mx-auto p-4 bg-white
+      className="max-w-md mx-auto p-4 
  rounded-lg shadow-lg w-full min-h-screen sm:min-h-0 flex flex-col"
     >
       <h2 className="text-2xl sm:text-3xl font-f1 text-center mb-4 sm:mb-6 text-black">
-      ✨ Whispers of the Advisor 🏰
+        ✨ Whispers of the Advisor 🏰
       </h2>
 
-      <ImageSlideshow images={images} />
+      <ImageSlideshow images={images} className="flex-grow-0" />
 
-      <div className="mb-4 flex-grow overflow-y-auto font-f1">
+      <div className="mb-4 flex-grow  font-f1">
         {chatHistory.length > 0 && (
           <div className="space-y-3 sm:space-y-4">
             <ul className="space-y-2 sm:space-y-3">
@@ -182,12 +182,30 @@ const ChatComponent = () => {
                 >
                   {entry.type === "user" ? (
                     <p>
-                      <strong className="text-blue-600">You:</strong>{" "}
-                      {entry.prompt}
+                      <div className="flex items-center space-x-2">
+                        <img
+                          src="https://res.cloudinary.com/dhcawltsr/image/upload/v1739532331/images_iyv8m8.jpg"
+                          alt="User Avatar"
+                          className="w-10 h-10 sm:w-8 sm:h-8 rounded-full"
+                        />
+                        <Chip className="mb-2" variant="dot" color="primary">
+                          Clumsy
+                        </Chip>
+                      </div>
+                      <div>{entry.prompt}</div>
                     </p>
                   ) : (
                     <p>
-                      <strong className="text-black font-f1">Whimsy:</strong>{" "}
+                      <div className="flex items-center space-x-2">
+                        <img
+                          src="https://res.cloudinary.com/dhcawltsr/image/upload/v1739530907/Cat_rising_from_a_pumpkin_c5vt5d.gif"
+                          alt="User Avatar"
+                          className="w-10 h-10 sm:w-8 sm:h-8 rounded-full"
+                        />
+                        <Chip className="mb-2" variant="dot" color="success">
+                          Whimsy
+                        </Chip>
+                      </div>
                       {entry.response}
                     </p>
                   )}
@@ -211,7 +229,12 @@ const ChatComponent = () => {
         />
 
         <div className="flex justify-center">
-          <Button type="submit" disabled={loading} className=" font-f1 w-[full" size="lg">
+          <Button
+            type="submit"
+            disabled={loading}
+            className=" font-f1 w-[400px] bg-black text-white"
+            size="lg"
+          >
             {loading ? "Weaving the magic...✨" : "Whisper to Whimsy🐱✨"}
           </Button>
         </div>
