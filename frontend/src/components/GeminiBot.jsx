@@ -1,6 +1,7 @@
 // ChatComponent.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Button } from "@nextui-org/react";
 
 const CHARACTER_PROMPT = `Your name is Whimsy, a mischievous and playful **magical storyteller cat** 🐱✨. You were gifted to **Princess Senu,The Clumsy Princess** by her **loyal royal advisor, Dileepa.** You speak in a charming and slightly dramatic way, often adding **emojis** to express emotions.  
 
@@ -83,25 +84,6 @@ const ChatComponent = () => {
   const [loading, setLoading] = useState(false);
   const [images] = useState([
     "https://res.cloudinary.com/dhcawltsr/image/upload/v1739522159/Thick_foggy_surroundings_Isekai_anime_style._Night_scene_in_a_royal_garden_soft_lantern_light._Fair-skinned_royal_advisor_smirks_black_earring_looking_at_princess_in_elegant_gown._Princess_playfully_says_It_s_a_s_c18bln.jpg",
-    "https://picsum.photos/seed/image2/800/600",
-    "https://picsum.photos/seed/image3/800/600",
-    "https://picsum.photos/seed/image4/800/600",
-    "https://picsum.photos/seed/image5/800/600",
-    "https://picsum.photos/seed/image6/800/600",
-    "https://picsum.photos/seed/image7/800/600",
-    "https://picsum.photos/seed/image8/800/600",
-    "https://picsum.photos/seed/image9/800/600",
-    "https://picsum.photos/seed/image10/800/600",
-    "https://picsum.photos/seed/image11/800/600",
-    "https://picsum.photos/seed/image12/800/600",
-    "https://picsum.photos/seed/image13/800/600",
-    "https://picsum.photos/seed/image14/800/600",
-    "https://picsum.photos/seed/image15/800/600",
-    "https://picsum.photos/seed/image16/800/600",
-    "https://picsum.photos/seed/image17/800/600",
-    "https://picsum.photos/seed/image18/800/600",
-    "https://picsum.photos/seed/image19/800/600",
-    "https://picsum.photos/seed/image20/800/600",
   ]);
 
   useEffect(() => {
@@ -179,15 +161,17 @@ const ChatComponent = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-gradient-to-br from-indigo-900 via-purple-700 to-indigo-500
- rounded-lg shadow-lg w-full min-h-screen sm:min-h-0 flex flex-col">
-      <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-4 sm:mb-6">
-        Chat with Gwen
+    <div
+      className="max-w-md mx-auto p-4 bg-white
+ rounded-lg shadow-lg w-full min-h-screen sm:min-h-0 flex flex-col"
+    >
+      <h2 className="text-2xl sm:text-3xl font-f1 text-center mb-4 sm:mb-6 text-black">
+      ✨ Whispers of the Advisor 🏰
       </h2>
 
       <ImageSlideshow images={images} />
 
-      <div className="mb-4 flex-grow overflow-y-auto ">
+      <div className="mb-4 flex-grow overflow-y-auto font-f1">
         {chatHistory.length > 0 && (
           <div className="space-y-3 sm:space-y-4">
             <ul className="space-y-2 sm:space-y-3">
@@ -203,7 +187,7 @@ const ChatComponent = () => {
                     </p>
                   ) : (
                     <p>
-                      <strong className="text-green-600">Gwen:</strong>{" "}
+                      <strong className="text-black font-f1">Whimsy:</strong>{" "}
                       {entry.response}
                     </p>
                   )}
@@ -227,13 +211,9 @@ const ChatComponent = () => {
         />
 
         <div className="flex justify-center">
-          <button
-            type="submit"
-            disabled={loading}
-            className="bg-blue-600 text-white px-4 sm:px-6 py-2 rounded-lg text-base sm:text-lg hover:bg-blue-700 disabled:opacity-50 w-full sm:w-auto"
-          >
+          <Button type="submit" disabled={loading} className=" font-f1 w-[full" size="lg">
             {loading ? "Weaving the magic...✨" : "Whisper to Whimsy🐱✨"}
-          </button>
+          </Button>
         </div>
       </form>
     </div>
