@@ -1,17 +1,45 @@
-import React, { useState } from 'react';
+// ChatComponent.jsx
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+const CHARACTER_PROMPT = 'Your name is Gwen. You are an 11 years old child.';
+
 const ChatComponent = () => {
-  const [sessionId, setSessionId] = useState('');
+  const [sessionId] = useState(Date.now().toString()); // Set once, never changes
   const [prompt, setPrompt] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
   const [response, setResponse] = useState('');
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    initializeChat();
+  }, []); // Run once when component mounts
+
+  const initializeChat = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.post('http://localhost:3000/api/chat/init', {
+        sessionId,
+        characterPrompt: CHARACTER_PROMPT,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      setResponse(res.data.result);
+      setChatHistory([{ type: 'ai', response: res.data.result }]);
+    } catch (error) {
+      console.error('Error:', error);
+      setResponse(error.response?.data?.message || 'Failed to initialize chat.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleChatSubmit = async (e) => {
     e.preventDefault();
 
-    // Check if prompt is empty
     if (!prompt.trim()) {
       alert('Please enter a prompt!');
       return;
@@ -19,23 +47,25 @@ const ChatComponent = () => {
 
     setLoading(true);
     try {
-      // Ensure sessionId exists; if not, generate one
-      if (!sessionId) {
-        setSessionId(Date.now().toString()); // Generate sessionId if not set
-      }
-
-      // Send request with sessionId and prompt
       const res = await axios.post('http://localhost:3000/api/chat', {
         sessionId,
-        prompt,
+        prompt: prompt.trim(),
+        characterPrompt: CHARACTER_PROMPT,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
       setResponse(res.data.result);
-      setChatHistory((prev) => [...prev, { prompt, response: res.data.result }]);
+      setChatHistory((prev) => [...prev, 
+        { type: 'user', prompt: prompt },
+        { type: 'ai', response: res.data.result }
+      ]);
       setPrompt('');
     } catch (error) {
       console.error('Error:', error);
-      setResponse('An error occurred while processing your request.');
+      setResponse(error.response?.data?.message || 'An error occurred while processing your request.');
     } finally {
       setLoading(false);
     }
@@ -43,7 +73,7 @@ const ChatComponent = () => {
 
   return (
     <div className="max-w-xl mx-auto p-4 bg-white rounded-lg shadow-lg">
-      <h2 className="text-3xl font-semibold text-center mb-6">Chat with AI</h2>
+      <h2 className="text-3xl font-semibold text-center mb-6">Chat with Gwen</h2>
       
       <div className="mb-4">
         {chatHistory.length > 0 && (
@@ -52,8 +82,11 @@ const ChatComponent = () => {
             <ul className="space-y-2">
               {chatHistory.map((entry, index) => (
                 <li key={index} className="p-4 bg-gray-100 rounded-lg shadow-sm">
-                  <p><strong className="text-blue-600">You:</strong> {entry.prompt}</p>
-                  <p><strong className="text-green-600">AI:</strong> {entry.response}</p>
+                  {entry.type === 'user' ? (
+                    <p><strong className="text-blue-600">You:</strong> {entry.prompt}</p>
+                  ) : (
+                    <p><strong className="text-green-600">Gwen:</strong> {entry.response}</p>
+                  )}
                 </li>
               ))}
             </ul>
@@ -80,13 +113,6 @@ const ChatComponent = () => {
           </button>
         </div>
       </form>
-
-      {response && (
-        <div className="mt-6 p-4 bg-gray-200 rounded-lg">
-          <h3 className="text-xl font-medium">AI Response:</h3>
-          <p className="text-gray-700">{response}</p>
-        </div>
-      )}
     </div>
   );
 };
