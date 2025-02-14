@@ -95,6 +95,10 @@ const ChatComponent = () => {
     "https://res.cloudinary.com/dhcawltsr/image/upload/v1739523145/A_warm_wet_rainy_scene_unfolds_in_Isekai_anime_style._A_fair-skinned_athletic_advisor_dramatically_kneels_before_an_elegant_princess_presenting_a_scroll_with_a_smirk._The_amused_princess_laughs_as_she_reads_the_t92x4f.jpg",
     "https://res.cloudinary.com/dhcawltsr/image/upload/v1739534538/Ethereal_spiritual_classic_black_and_white_Isekai_anime_depicting_a_grand_throne_room._A_fair-skinned_athletic_advisor_in_a_gold-embroidered_robe_and_black_earring_stands_before_a_princess_in_a_luxurious_gown_and_i2vazh.jpg",
     "https://res.cloudinary.com/dhcawltsr/image/upload/v1739534533/A_grand_castle_study_Isekai_anime_style_depicted_with_a_blurred_bokeh_effect_in_a_wet_rainy_scene._A_fair-skinned_athletic_young_royal_advisor_wearing_a_black_earring_sits_exhausted_yet_determined_at_a_large_wo_yuqmgt.jpg",
+    "https://res.cloudinary.com/dhcawltsr/image/upload/v1739539712/Isekai_anime_style_illustration._Natural_earth_tones._Advisor_in_elegant_robes_examines_glowing_scrolls_in_a_royal_study._Black_earring_glints._Princess_peeks_from_behind_a_bookshelf._Whimsy_the_cat_knocks_over_books_k4kwem.jpg",
+    "https://res.cloudinary.com/dhcawltsr/image/upload/v1739539712/Warm_candlelight_soft_dreamy_atmosphere._Isekai_anime_style_depicting_a_princess_introduced_to_a_horse-drawn_carriage_and_bicycle._She_hesitates_as_her_advisor_hops_on_the_bicycle._His_black_earring_sways._Whimsy_vblyfg.jpg",
+    "https://res.cloudinary.com/dhcawltsr/image/upload/v1739540192/660291b7-e007-4ab8-aa5e-6a386498dca4_uxpy2t.png",
+    "https://res.cloudinary.com/dhcawltsr/image/upload/v1739540611/7da999e5-0bbd-4ec4-97ba-1aeeb617fafa_a9z1v8.png"
   ]);
 
   useEffect(() => {
