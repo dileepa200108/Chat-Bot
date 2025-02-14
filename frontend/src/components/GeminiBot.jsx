@@ -18,7 +18,7 @@ const ChatComponent = () => {
   const initializeChat = async () => {
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:3000/api/chat/init', {
+      const res = await axios.post('https://backend-test-production-ed922.up.railway.app/api/chat/init', {
         sessionId,
         characterPrompt: CHARACTER_PROMPT,
       }, {
@@ -47,7 +47,7 @@ const ChatComponent = () => {
 
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:3000/api/chat', {
+      const res = await axios.post('https://backend-test-production-ed922.up.railway.app/api/chat', {
         sessionId,
         prompt: prompt.trim(),
         characterPrompt: CHARACTER_PROMPT,
