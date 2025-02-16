@@ -207,7 +207,7 @@ const ChatComponent = () => {
                     <p>
                       <div className="flex items-center space-x-2">
                         <img
-                          src="https://res.cloudinary.com/dhcawltsr/image/upload/v1739535580/DALLE_IMAGES_5Pdz6LygrjUQaEgsuxQuOWF3NBE2_resized_1701954319846o_w_800x800_cpryzu.webp"
+                          src="https://res.cloudinary.com/dhcawltsr/image/upload/v1739711193/cute-princess-chibi-girl-hand-drawn-cartoon-sticker-icon-concept-isolated-illustration_730620-93202_1_lrouie.avif"
                           alt="User Avatar"
                           className="w-10 h-10 sm:w-8 sm:h-8 rounded-full"
                         />
