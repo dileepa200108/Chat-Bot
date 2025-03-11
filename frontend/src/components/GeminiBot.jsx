@@ -159,7 +159,7 @@ const ChatComponent = () => {
             className=" font-f1 w-[400px] bg-black text-white"
             size="lg"
           >
-            {loading ? "Weaving the magic...✨" : "Whisper to Whimsy🐱✨"}
+            {loading ? "Altering The dimension" : "Summon Crazy Diamond"}
           </Button>
         </div>
       </form>
