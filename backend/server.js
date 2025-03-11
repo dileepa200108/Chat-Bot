@@ -3,7 +3,6 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
 import { mongoDBURL } from "./config.js";
-import productRoutes from "./routes/productRoutes.js";
 import GPTRouter from "./routes/gpt_route.js";
 
 const app = express();
@@ -43,9 +42,7 @@ app.listen(3000, () => {
 })
 
 
-
-// Use product routes
-app.use("/api", productRoutes);
+// API routes
 app.use("/api", GPTRouter);
 
 // Export as a serverless function for Vercel
