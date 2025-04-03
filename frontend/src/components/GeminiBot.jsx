@@ -113,7 +113,7 @@ const ChatComponent = () => {
                           className="w-10 h-10 sm:w-8 sm:h-8 rounded-full"
                         />
                         <Chip className="mb-2" variant="dot" color="success">
-                          Clumsy
+                          Clum
                         </Chip>
                       </div>
                       <div>{entry.prompt}</div>
